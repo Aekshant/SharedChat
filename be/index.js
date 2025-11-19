@@ -1,7 +1,8 @@
 
 require('dotenv').config()
 const { app } = require("./config/express.config");
-const { port } = require("./config/config")[process.env.NODE_ENV]
+// const { port } = require("./config/config")[process.env.NODE_ENV]
+const userRoutes = require("./src/routes/user.route");
 
 
 app.get("/",(req,res)=>{    
@@ -11,7 +12,9 @@ app.get("/",(req,res)=>{
     })
 })
 
+app.use("/api", userRoutes);
 
-app.listen( port,()=>{
-    console.log("server running on "+ port);
+app.listen( 
+    4000,()=>{
+    console.log("server running on 4000");
 })

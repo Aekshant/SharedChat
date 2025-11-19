@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import 'primeflex/primeflex.css';
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+ 
+ 
+
+body {
+  background: #f5f7fa;
+} 
+
+ /* You can add global styles to this file, and also import other style files */
