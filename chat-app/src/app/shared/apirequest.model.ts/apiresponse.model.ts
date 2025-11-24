@@ -1,5 +1,10 @@
-// src/app/shared/models/user.model.ts
-export interface User {
+export interface Root {
+  status: boolean
+  data: Daum[]
+  message: string
+}
+
+export interface Daum {
   userid: number
   firstname: string
   lastname: string

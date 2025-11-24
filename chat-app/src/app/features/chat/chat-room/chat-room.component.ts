@@ -1,24 +1,46 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../core/services/user.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
 import { UserListComponent } from '../user-list/user-list.component';
-import { NgClass } from '@angular/common';
+import { JsonPipe, NgClass, NgIf, NgStyle } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { WebSocketService } from '../../../core/services/websocket.service';
 
 @Component({
   selector: 'app-chat-room',
   standalone: true,
-  imports: [ChatWindowComponent ,
+  imports: [ChatWindowComponent,
     UserListComponent,
-    NgClass
-  ],
+    NgClass,
+    NgIf, NgStyle],
   templateUrl: './chat-room.component.html',
   styleUrl: './chat-room.component.scss'
 })
-export class ChatRoomComponent {
+export class ChatRoomComponent implements OnInit, OnDestroy {
 
   selectedUser: any = null;
   sidebarOpen = false; // for mobile
+
+  roomId!: string;
+  messages: any[] = [];
+
+
+  constructor(
+    private route: ActivatedRoute,
+    private ws: WebSocketService
+  ) { }
+
+  ngOnInit(): void {
+    this.roomId = this.route.snapshot.params['id'];
+    // const WS_URL = `ws://localhost:8000/chat?room=${this.roomId}`;
+    const WS_URL = `ws://localhost:8080`;
+
+    this.ws.connect(WS_URL);
+
+    this.ws.messages$.subscribe((msg) => {
+      this.messages.push(msg);
+    });
+  }
+
 
   onUserSelected(user: any) {
     this.selectedUser = user;
@@ -39,5 +61,9 @@ export class ChatRoomComponent {
     }
   }
 
+
+  ngOnDestroy() {
+    this.ws.close();
+  }
 
 }

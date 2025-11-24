@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { CardModule } from 'primeng/card'
 import { PrimeNgModule } from '../../../shared/prime-ng.module';
+import { UserService } from '../../../core/services/user.service';
 
 
 
@@ -25,10 +26,20 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(public router: Router) { }
+  constructor(public router: Router,
+    private userService: UserService
 
- onSubmit() {
-  alert("in");
-  this.router.navigate(['/chat']);
-}
+  ) { }
+
+  onSubmit() {
+
+    this.userService.loginUser(this.email, this.password).subscribe((response) => {
+      console.log('in api call')
+      console.log("response ==>", response);
+      if (response.status) {
+        localStorage.setItem('chat_user', JSON.stringify(response.data[0]));
+        this.router.navigate(['/chat']);
+      }
+    })
+  }
 }

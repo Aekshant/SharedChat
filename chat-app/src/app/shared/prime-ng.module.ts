@@ -25,7 +25,7 @@ import { TagModule } from 'primeng/tag';
 import { PanelModule } from 'primeng/panel';
 
 /* Dropdown */
-// import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primeng/dropdown';
 
 /* Icons */
 import { RippleModule } from 'primeng/ripple';
@@ -66,7 +66,7 @@ import { MessageModule } from 'primeng/message';
     PanelModule,
 
     /* Selectors */
-    // DropdownModule,
+    DropdownModule,
 
     /* Icons */
     RippleModule,

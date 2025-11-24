@@ -6,19 +6,20 @@
 
   <p-scrollPanel class="flex-1">
     <div>
-      <div *ngFor="let user of users"
-           (click)="selectUser(user)"
-           class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 cursor-pointer">
+      <div *ngIf="userResponse">
+        <div *ngFor="let user of userResponse.data  " (click)="selectUser(user)"
+          class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 cursor-pointer">
 
-        <p-avatar [label]="user.name[0]"></p-avatar>
+          <p-avatar [label]="user.firstname[0]"></p-avatar>
 
-        <div>
-          <div class="font-medium">{{ user.name }}</div>
-          <div class="text-sm text-gray-300">{{ user.lastMessage }}</div>
+          <div>
+            <div class="font-medium">{{ user.firstname }}</div>
+            <!-- <div class="text-sm text-gray-300">{{ user.lastMessage }}</div> -->
+          </div>
+
         </div>
-
+        <p-divider></p-divider>
       </div>
-      <p-divider></p-divider>
     </div>
   </p-scrollPanel>
 

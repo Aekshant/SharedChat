@@ -1,22 +1,35 @@
 // src/app/core/services/user.service.ts
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { User } from '../../shared/models/user.model';
-import { Observable, of } from 'rxjs';
+import { firstValueFrom, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { Root } from '../../shared/apirequest.model.ts/apiresponse.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private users: User[] = [
-    { id: 'u1', name: 'Alice', email: 'alice@example.com' },
-    { id: 'u2', name: 'Bob', email: 'bob@example.com' },
-    { id: 'u3', name: 'Charlie', email: 'charlie@example.com' }
-  ];
 
-  getUsers(): Observable<User[]> {
-    return of(this.users).pipe(delay(200));
+  http = inject(HttpClient);
+
+
+  private users: User[] = []
+
+  async getUsers(): Promise<Observable<Root>> {
+    // return of(this.users).pipe(delay(200));
+    return await firstValueFrom(this.http.get<any>(`${environment.api.baseUrl}${environment.api.chat.users}`));
   }
 
-  getUserById(id: string): Observable<User | undefined> {
-    return of(this.users.find(u => u.id === id));
+  getUserById(userid: string | number): Observable<User | undefined> {
+    return of(this.users.find(u => u.userid === userid));
+  }
+
+
+  loginUser(email: string, password: string): Observable<Root> {
+    const payload = {
+      emailid: email,
+      password: password
+    }
+    return this.http.post<Root>(`${environment.api.baseUrl}${environment.api.auth.login}`, payload);
   }
 }

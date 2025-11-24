@@ -2,30 +2,33 @@
   <!-- Header -->
   <div class="flex items-center gap-3 p-3 border-b bg-gray-50">
     <p-avatar shape="circle" styleClass="bg-indigo-500 text-black font-bold flex items-center justify-center"
-      label="{{ selectedUser?.name[0] }}" shape="circle"></p-avatar>
+      label="{{ selectedUser?.firstname[0] }}" shape="circle"></p-avatar>
     <div>
-      <p class="font-semibold">{{ selectedUser?.name }}</p>
+      <p class="font-semibold">{{ selectedUser?.firstname }} {{ selectedUser?.userid }}</p>
       <p class="text-xs text-gray-500">Online</p>
     </div>
   </div>
 
   <!-- Messages -->
-  <div class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-100" #scrollContainer>
+  <div class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-100 chatbox" #scrollContainer>
 
     <div *ngFor="let msg of messages">
-      <div [ngClass]="{
-            'text-right': msg.isMine
-        }">
+      <div class="textbox" [ngClass]="{
+        'text-right': msg.from == currentUser.userid && msg.to == selectedUser?.userid,
+      }"
+  [ngStyle]="{'display': msg.from == currentUser.userid && msg.to == selectedUser?.userid || msg.from == selectedUser?.userid && msg.to == currentUser.userid ? '' : 'none'}"
+>
 
-        <p-card class="inline-block max-w-[75%] p-2 rounded-xl" [ngClass]="{
-            'bg-blue-500 text-white ml-auto': msg.isMine,
-            'bg-white text-gray-800': !msg.isMine
-          }">
-          {{ msg.text }}
+        <!-- [ngClass]="{
+            'bg-blue-500 text-white ml-auto': msg.from == currentUser.userid && msg.to == selectedUser?.userid,
+            'bg-white text-gray-800': msg.from != currentUser.userid || msg.to != selectedUser?.userid,
+          }" -->
+        <p-card class="inline-block max-w-[75%] p-2 rounded-xl ">
+          {{ msg.text + ' ' + msg.from +' '+selectedUser.userid + '->' + msg.to + ' ' + currentUser.userid }}
         </p-card>
 
-        <p class="text-xs text-gray-500 mt-1" [ngClass]="{'text-right': msg.isMine}">
-          {{ msg.time }}
+        <p class="text-xs text-gray-500 mt-1">
+          {{ msg.timestamp }}
         </p>
       </div>
     </div>

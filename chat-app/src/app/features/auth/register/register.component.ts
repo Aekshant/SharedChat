@@ -22,7 +22,8 @@ export class RegisterComponent {
   constructor(private router: Router) { }
 
   onRegister() {
-    // Add real signup logic here
+    // Add real signup logic here;
+    
     this.router.navigate(['/login']);
   }
 }

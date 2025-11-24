@@ -1,9 +1,9 @@
-<div class="flex h-screen bg-gray-900 overflow-hidden">
 
+
+<div class="flex h-screen bg-gray-900 overflow-hidden">
   <!-- MOBILE HEADER -->
   <div class="md:hidden bg-gray-800 p-4 flex items-center justify-between">
     <h2 class="text-white font-semibold text-lg">Chats</h2>
-
     <!-- Sidebar Toggle Button -->
     <button 
       class="text-white p-2"
@@ -13,6 +13,7 @@
   </div>
 
   <!-- SIDEBAR (USER LIST) -->
+
   <div
     class="
       fixed 
@@ -36,10 +37,19 @@
 
   <!-- CHAT WINDOW -->
   <div class="flex-1 h-full">
-    <app-chat-window
+    <!-- <div *ngIf="selectedUser"> -->
+      <div [ngStyle]="{'display' : selectedUser ? '' : 'none'}" class="h-full">
+      <app-chat-window
       [selectedUser]="selectedUser"
       (backToUsers)="closeSidebarOnMobile()"
-    ></app-chat-window>
+      ></app-chat-window>
+    </div>
+    <div [ngStyle]="{'display': selectedUser ? 'none' : ''}" class="h-full">
+    <!-- <div *ngIf="!selectedUser"> -->
+      <div class="h-full flex items-center justify-center">
+        <p class="text-gray-400">Select a user to start chatting</p>
+      </div>
+    </div>
   </div>
 
 </div>
