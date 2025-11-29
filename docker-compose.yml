@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: sharedchat-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: sharedchatdb
+      POSTGRES_USER: sharedchat
+      POSTGRES_PASSWORD: sharedchat123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./be
+    container_name: sharedchat-backend
+    restart: always
+    environment:
+      NODE_ENV: development
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: sharedchatdb
+      DB_USERNAME: sharedchat
+      DB_PASSWORD: sharedchat123
+      DIALECT: postgres
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./chat-app
+    container_name: sharedchat-frontend
+    restart: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+

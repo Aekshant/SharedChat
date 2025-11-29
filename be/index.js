@@ -26,7 +26,7 @@ app.use('/api', messageRoutes);
 
 
 app.listen(
-    4000, () => {
+    4000,"0,0,0,0", () => {
         console.log("server running on 4000");
     })
 
