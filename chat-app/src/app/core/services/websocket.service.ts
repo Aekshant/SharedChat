@@ -22,14 +22,13 @@ export class WebSocketService implements OnDestroy {
     this.socket = new WebSocket(url);
 
     this.socket.onopen = (ev) => {
-      console.log('[WS] Connected →', url , this.messages$);
+      console.log('[WS] Connected →', url );
     };
 
     this.socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
 
-        console.log("[WS] Message received:", data);
         this.messageSubject.next(data);
 
 

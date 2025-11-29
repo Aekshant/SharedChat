@@ -13,6 +13,7 @@ export const environment = {
       users: '/chat/users',
       messages: '/chat/messages',
       sendMessage: '/chat/send',
+      insertMessage: '/message/insertmessage'
     }
   }
 };

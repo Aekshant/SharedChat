@@ -11,7 +11,6 @@ wss.on('connection', ws => {
     ws.send(JSON.stringify(todos));
     ws.on('message', message => {
         const receivedMessage = message.toString(); // Convert the message to a string
-         console.log("recived message is " , receivedMessage) 
         if (receivedMessage === '\"reset!*(@h9890138ch1908\"') {
             // Reset the to-do list 
             todos = [];

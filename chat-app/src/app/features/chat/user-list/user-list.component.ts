@@ -37,9 +37,9 @@ userResponse!: Root;
   ngOnInit(): void {
     this.getAllUsers();
   }
-  selectUser(user: any) {
 
-    console.log(user)
+
+  selectUser(user: any) {
     this.userSelected.emit(user);
     this.router.navigate(['/chat/room', user.userid]);
 
@@ -51,6 +51,8 @@ userResponse!: Root;
     // Fetch users from the UserService
     this.userService.getUsers().then((response:any) => {
       this.userResponse = response;
+
+      this.userService.setUsersFromList(this.userResponse.data);
     });
 
 

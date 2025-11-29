@@ -12,7 +12,8 @@ export const environment = {
     chat: {
       users: '/chat/users',
       messages: '/chat/messages',
-      sendMessage: '/chat/send',
+      sendMessage: '/message/send',
+      insertMessage: '/message/insertmessage'
     }
   }
 };

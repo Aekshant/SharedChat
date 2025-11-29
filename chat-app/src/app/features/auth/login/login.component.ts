@@ -34,8 +34,6 @@ export class LoginComponent {
   onSubmit() {
 
     this.userService.loginUser(this.email, this.password).subscribe((response) => {
-      console.log('in api call')
-      console.log("response ==>", response);
       if (response.status) {
         localStorage.setItem('chat_user', JSON.stringify(response.data[0]));
         this.router.navigate(['/chat']);

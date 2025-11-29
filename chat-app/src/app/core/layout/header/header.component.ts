@@ -16,7 +16,6 @@ export class HeaderComponent {
 
   constructor(private authService: AuthService, private router: Router) {
     this.user = this.authService.getCurrentUser();
-    console.log("Current User:", this.user);
   }
 
 

@@ -22,10 +22,8 @@ exports.registerUser = async (req, res) => {
 
 
 exports.loginUser = async (req, res) => {
-    console.log(req.body)
     try {
         const data = await userServices.loginUser(req.body);
-        console.log(data)
         if (data.length == 0) {
             return res.status(401).send({ status: false, data, message: "Invalid Credentials" })
         }

@@ -1,7 +1,10 @@
 // src/app/core/services/chat.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Message } from '../../shared/models/message.model';
+import { Message, SendMessageParam } from '../../shared/models/message.model';
+import { HttpClient } from '@angular/common/http';
+import { ApiEndpoints } from '../../api-endpoints';
+import { environment } from '../../../environments/environment';
 // import { v4 as uuidv4 } from 'uuid'; // optional - install uuid or use simple id generator
 
 @Injectable({ providedIn: 'root' })
@@ -11,7 +14,7 @@ export class ChatService {
   private messagesSubject = new BehaviorSubject<Message[]>([]);
   messages$ = this.messagesSubject.asObservable();
 
-  constructor() {}
+  constructor(private http: HttpClient) { }
 
   sendMessage(fromId: string, toId: string, text: string) {
     const msg: Message = {
@@ -33,21 +36,9 @@ export class ChatService {
     );
   }
 
-  // OPTIONAL: real socket example (comment)
-  /*
-  // import { io, Socket } from 'socket.io-client';
-  private socket: Socket;
 
-  connect(token: string) {
-    this.socket = io('http://localhost:3000', { auth: { token } });
-    this.socket.on('message', (msg) => {
-      this.messages = [...this.messages, msg];
-      this.messagesSubject.next(this.messages);
-    });
+  insertMessage(payload: SendMessageParam) : Observable<any> {
+   return this.http.post(`${environment.api.baseUrl}${ApiEndpoints.insertMessage}`, payload);
   }
 
-  sendSocketMessage(payload) {
-    this.socket.emit('message', payload);
-  }
-  */
 }

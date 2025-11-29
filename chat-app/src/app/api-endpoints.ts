@@ -8,4 +8,5 @@ export class ApiEndpoints {
   static getUsers = environment.api.chat.users;
   static getMessages = environment.api.chat.messages;
   static sendMessage = environment.api.chat.sendMessage;
+  static insertMessage = environment.api.chat.insertMessage;
 }

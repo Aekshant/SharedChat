@@ -16,19 +16,18 @@
       <div class="textbox" [ngClass]="{
         'text-right': msg.from == currentUser.userid && msg.to == selectedUser?.userid,
       }"
-  [ngStyle]="{'display': msg.from == currentUser.userid && msg.to == selectedUser?.userid || msg.from == selectedUser?.userid && msg.to == currentUser.userid ? '' : 'none'}"
->
+        [ngStyle]="{'display': msg.from == currentUser.userid && msg.to == selectedUser?.userid || msg.from == selectedUser?.userid && msg.to == currentUser.userid ? '' : 'none'}">
 
         <!-- [ngClass]="{
-            'bg-blue-500 text-white ml-auto': msg.from == currentUser.userid && msg.to == selectedUser?.userid,
+            'bg-blue-500 text-whites ml-auto': msg.from == currentUser.userid && msg.to == selectedUser?.userid,
             'bg-white text-gray-800': msg.from != currentUser.userid || msg.to != selectedUser?.userid,
           }" -->
         <p-card class="inline-block max-w-[75%] p-2 rounded-xl ">
-          {{ msg.text + ' ' + msg.from +' '+selectedUser.userid + '->' + msg.to + ' ' + currentUser.userid }}
+          {{ msg.text }}
         </p-card>
 
         <p class="text-xs text-gray-500 mt-1">
-          {{ msg.timestamp }}
+          {{ msg.timestamp | date : 'dd-MMM-yyyy hh:mm:ss a' }}
         </p>
       </div>
     </div>

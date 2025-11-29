@@ -4,6 +4,8 @@ import { UserListComponent } from '../user-list/user-list.component';
 import { JsonPipe, NgClass, NgIf, NgStyle } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { WebSocketService } from '../../../core/services/websocket.service';
+import { PushService } from '../../../core/services/push.service';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-chat-room',
@@ -11,7 +13,8 @@ import { WebSocketService } from '../../../core/services/websocket.service';
   imports: [ChatWindowComponent,
     UserListComponent,
     NgClass,
-    NgIf, NgStyle],
+    // NgIf, 
+    NgStyle],
   templateUrl: './chat-room.component.html',
   styleUrl: './chat-room.component.scss'
 })
@@ -26,12 +29,21 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private ws: WebSocketService
+    private ws: WebSocketService,
+    private pushService: PushService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
+    
+    
+    
     this.roomId = this.route.snapshot.params['id'];
-    // const WS_URL = `ws://localhost:8000/chat?room=${this.roomId}`;
+    
+    if (this.roomId) {
+      this.selectUserById(this.roomId);
+      this.pushService.subscribeToNotifications();
+    }
     const WS_URL = `ws://localhost:8080`;
 
     this.ws.connect(WS_URL);
@@ -64,6 +76,18 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.ws.close();
+  }
+
+  private selectUserById(id: any) {
+    // If you have user list already loaded:
+    // Example where your user list comes from a service:
+    this.userService.getUsersFromList().subscribe((users: any) => {
+      try {
+        this.selectedUser = users.find((u: any) => u.userid === +(id));
+      } catch (error) {
+      }
+    });
+
   }
 
 }
