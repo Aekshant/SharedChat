@@ -13,7 +13,12 @@ export const environment = {
       users: '/chat/users',
       messages: '/chat/messages',
       sendMessage: '/chat/send',
-      insertMessage: '/message/insertmessage'
+      insertMessage: '/message/insertmessage',
+      getChatHistory:'/message/chathistory'
+
+    },
+     profile : {
+      userById: '/user'
     }
   }
 };

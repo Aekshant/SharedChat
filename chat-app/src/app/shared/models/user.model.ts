@@ -10,4 +10,5 @@ export interface User {
   entrytime: any
   updatetime: any
   status: any
+  gender :number
 }

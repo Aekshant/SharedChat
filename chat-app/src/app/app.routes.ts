@@ -4,6 +4,7 @@ import { RegisterComponent } from './features/auth/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { UserListComponent } from './features/chat/user-list/user-list.component';
 import { ChatRoomComponent } from './features/chat/chat-room/chat-room.component';
+import { ProfileComponent } from './features/user/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,13 @@ export const routes: Routes = [
       { path: 'users', component: UserListComponent },
       { path: 'room/:id', component: ChatRoomComponent },
       { path: '', redirectTo: 'users', pathMatch: 'full' }
+    ]
+  },
+  {
+    path: 'user',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'profile', component: ProfileComponent },
     ]
   },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },

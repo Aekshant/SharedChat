@@ -1,12 +1,12 @@
+import { SharedModule } from './../../../shared/shared.module';
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { JsonPipe } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [SharedModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

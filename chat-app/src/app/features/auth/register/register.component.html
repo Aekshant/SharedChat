@@ -1,32 +1,49 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100 p-4">
-  <p-card class="w-full max-w-md shadow-xl rounded-2xl">
-    <h2 class="text-2xl font-semibold mb-4 text-center">Create Account</h2>
+<div class="register-container">
+  <mat-card class="register-card">
 
-    <form (ngSubmit)="onRegister()" class="flex flex-col gap-4">
+    <h2 class="title">Create Account</h2>
 
-      <span class="p-float-label">
-        <input pInputText id="name" [(ngModel)]="name" name="name" class="w-full" />
-        <label for="name">Full Name</label>
-      </span>
+    <form (ngSubmit)="onRegister()" class="form">
 
-      <span class="p-float-label">
-        <input pInputText id="email" [(ngModel)]="email" name="email" class="w-full" />
-        <label for="email">Email</label>
-      </span>
+      <!-- Full Name -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Full Name</mat-label>
+        <input matInput [(ngModel)]="name" name="name" required>
+      </mat-form-field>
 
-      <span class="p-float-label">
-        <input pPassword id="password" [(ngModel)]="password" name="password" toggleMask class="w-full" />
-        <label for="password">Password</label>
-      </span>
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [(ngModel)]="email" name="email" required>
+      </mat-form-field>
 
-      <button pButton type="submit" label="Register" class="w-full"></button>
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          [(ngModel)]="password"
+          name="password"
+          required
+        >
 
-      <p class="text-center text-sm">
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <!-- Register Button -->
+      <button mat-raised-button color="primary" class="full-width" type="submit">
+        Register
+      </button>
+
+      <p class="login-text">
         Already have an account?
-        <a routerLink="/login" class="text-blue-500 underline">Login</a>
+        <a routerLink="/login" class="login-link">Login</a>
       </p>
 
     </form>
-  </p-card>
+
+  </mat-card>
 </div>
-    

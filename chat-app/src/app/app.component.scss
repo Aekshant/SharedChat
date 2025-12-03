@@ -1,1 +1,17 @@
- 
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f3f4f6;
+  overflow-x: hidden;
+}
+
+.main-content {
+  flex: 1;            /* THIS pushes footer downward */
+  padding: 16px;
+  overflow-x: hidden;
+}
+
+app-footer {
+  margin-top: auto;   /* Keeps footer at bottom */
+}

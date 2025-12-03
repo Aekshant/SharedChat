@@ -32,3 +32,23 @@ exports.loginUser = async (req, res) => {
         return res.status(200).send({ status: true, data, message: "Internal Server Issue", error })
     }
 }
+
+
+exports.getUserById = async (req, res) => {
+    try {
+        const data = await userServices.getUserById(req.params.id)
+        return res.status(200).send({ status: true, data, message: "success" })
+    } catch (error) {
+        return res.status(200).send({ status: true, data, message: "Internal Server Issue", error })
+    }
+}
+
+
+exports.updateUser = async (req, res) => {
+    try {
+        const data = await userServices.updateUser(req.body)
+        return res.status(200).send({ status: true, data, message: "success" })
+    } catch (error) {
+        return res.status(200).send({ status: true, data, message: "Internal Server Issue", error })
+    }
+}

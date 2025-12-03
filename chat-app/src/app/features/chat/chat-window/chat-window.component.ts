@@ -1,13 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DatePipe, JsonPipe, NgClass, NgFor, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeNgModule } from '../../../shared/prime-ng.module';
 import { User } from '../../../shared/models/user.model';
 import { WebSocketService } from '../../../core/services/websocket.service';
 import { from, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SendMessageParam } from '../../../shared/models/message.model';
 import { ChatService } from '../../../core/services/chat.service';
+import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
   selector: 'app-chat-window',
@@ -15,11 +15,10 @@ import { ChatService } from '../../../core/services/chat.service';
   imports: [
     FormsModule,
     NgFor,
-    PrimeNgModule,
-    FormsModule,
     NgClass,
     NgStyle,
-    DatePipe
+    DatePipe,
+    SharedModule
   ],
   templateUrl: './chat-window.component.html',
   styleUrl: './chat-window.component.scss'
@@ -31,7 +30,7 @@ export class ChatWindowComponent implements OnChanges {
   message: string = '';
   messages: any[] = [];
   private sub!: Subscription;
-
+oldConversation: any[] = [];
 
   constructor(private ws: WebSocketService,
     private chatService: ChatService,
@@ -88,7 +87,7 @@ export class ChatWindowComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedUser'] && changes['selectedUser'].currentValue) {
-
+      this.getChatHistory()
     }
   }
 
@@ -110,5 +109,17 @@ export class ChatWindowComponent implements OnChanges {
   }
 
 
+  getChatHistory() {
+    if (!this.selectedUser) return;
+    this.chatService.getChatHistory(this.currentUser.userid, this.selectedUser.userid).subscribe({
+      next: (res: any) => {
+        this.messages = res.data || [];
+        console.log(this.messages)
+      },
+      error: (err) => {
+        console.error('Error fetching chat history', err);
+      }
+    });
+  }
 
 }

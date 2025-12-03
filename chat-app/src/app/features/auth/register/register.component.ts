@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PrimeNgModule } from '../../../shared/prime-ng.module';
+import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +9,7 @@ import { PrimeNgModule } from '../../../shared/prime-ng.module';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    PrimeNgModule
+    SharedModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -18,7 +18,7 @@ export class RegisterComponent {
   name = '';
   email = '';
   password = '';
-
+hidePassword = true;
   constructor(private router: Router) { }
 
   onRegister() {

@@ -3,11 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button'
-import { InputTextModule } from 'primeng/inputtext'
-import { CardModule } from 'primeng/card'
-import { PrimeNgModule } from '../../../shared/prime-ng.module';
 import { UserService } from '../../../core/services/user.service';
+import { SharedModule } from '../../../shared/shared.module';
 
 
 
@@ -17,8 +14,8 @@ import { UserService } from '../../../core/services/user.service';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    PrimeNgModule,
-    RouterModule],
+    RouterModule,
+  SharedModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

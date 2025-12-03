@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+/* Logo */
+.logo img {
+  height: 40px;
+}
+
+/* Push menu button to right side */
+.spacer {
+  flex: 1 1 auto;
+}

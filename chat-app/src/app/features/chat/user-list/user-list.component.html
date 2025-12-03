@@ -1,26 +1,33 @@
-<div class="h-full flex flex-col">
+<div class="users-container">
 
-  <div class="p-4 text-lg font-semibold border-b border-gray-600">
+  <!-- Header -->
+  <div class="users-header">
     Users
   </div>
 
-  <p-scrollPanel class="flex-1">
-    <div>
-      <div *ngIf="userResponse">
-        <div *ngFor="let user of userResponse.data  " (click)="selectUser(user)"
-          class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 cursor-pointer">
+  <!-- Scrollable User List -->
+  <div class="users-list">
 
-          <p-avatar [label]="user.firstname[0]"></p-avatar>
+    <ng-container *ngIf="userResponse">
+      <div *ngFor="let user of userResponse.data"
+           (click)="selectUser(user)"
+           class="user-item">
 
-          <div>
-            <div class="font-medium">{{ user.firstname }}</div>
-            <!-- <div class="text-sm text-gray-300">{{ user.lastMessage }}</div> -->
-          </div>
-
+        <!-- Material Avatar -->
+        <div class="avatar">
+          <mat-icon>person</mat-icon>
         </div>
-        <p-divider></p-divider>
+
+        <!-- User Info -->
+        <div>
+          <div class="user-name">{{ user.firstname }}</div>
+        </div>
+
       </div>
-    </div>
-  </p-scrollPanel>
+
+      <mat-divider></mat-divider>
+    </ng-container>
+
+  </div>
 
 </div>

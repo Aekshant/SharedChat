@@ -9,6 +9,7 @@ import { Root } from '../../shared/apirequest.model.ts/apiresponse.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+
   private users$ = new BehaviorSubject<any[]>([]);
 
   http = inject(HttpClient);
@@ -21,10 +22,13 @@ export class UserService {
     return await firstValueFrom(this.http.get<any>(`${environment.api.baseUrl}${environment.api.chat.users}`));
   }
 
-  getUserById(userid: string | number): Observable<User | undefined> {
-    return of(this.users.find(u => u.userid === userid));
+  async getUserById(userid: string | number): Promise<Observable<any>> {
+    return await firstValueFrom(this.http.get<any>(`${environment.api.baseUrl}${environment.api.profile.userById}/${userid}`));
   }
 
+  updateUserProfile(payload: any) {
+   return this.http.post<any>(`${environment.api.baseUrl}/user/updateuser`, payload );
+  }
 
   loginUser(email: string, password: string): Observable<Root> {
     const payload = {
@@ -35,7 +39,7 @@ export class UserService {
   }
 
 
-   setUsersFromList(users: any[]) {
+  setUsersFromList(users: any[]) {
     this.users$.next(users);
   }
 

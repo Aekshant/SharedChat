@@ -2,17 +2,17 @@ const { dbConnection } = require("../db/dbconnection");
 
 
 
-exports.getData = async () => {
-    const query = `select * from public.user_master`
-    const params = [];
-
-    try {
-        const queryResult = await dbConnection.executeQuery(query, params);
-        return queryResult;
-    } catch (error) {
-        console.error("error in login query", error);
-        return [];
-    }
+exports.getChatHistory = async (chatDetails) => {
+    const {chatid, chatmassege, fromuserid, touserid, togroupid, isseen, chatdate, entrytime, updatetime} = chatDetails;
+       const query = `SELECT * FROM public.users_chat 
+       WHERE (fromuserid = $1 and touserid = $2) or (fromuserid = $2 and touserid = $1);`
+       const params = [ fromuserid , touserid ];
+       try {
+           const queryResult = await dbConnection.executeQuery(query, params);
+           return queryResult;
+       } catch (error) {
+            return [];
+       }
 }
 
 

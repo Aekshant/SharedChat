@@ -1,45 +1,60 @@
-<div class="flex flex-col h-full bg-white border rounded-xl shadow">
-  <!-- Header -->
-  <div class="flex items-center gap-3 p-3 border-b bg-gray-50">
-    <p-avatar shape="circle" styleClass="bg-indigo-500 text-black font-bold flex items-center justify-center"
-      label="{{ selectedUser?.firstname[0] }}" shape="circle"></p-avatar>
+<div class="chat-container">
+
+  <!-- HEADER -->
+  <div class="chat-header">
+    <div class="avatar">
+      {{ selectedUser?.firstname[0] }}
+    </div>
+
     <div>
-      <p class="font-semibold">{{ selectedUser?.firstname }} {{ selectedUser?.userid }}</p>
-      <p class="text-xs text-gray-500">Online</p>
+      <p class="name">{{ selectedUser?.firstname }} {{ selectedUser?.userid }}</p>
+      <p class="status">Online</p>
     </div>
   </div>
 
-  <!-- Messages -->
-  <div class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-100 chatbox" #scrollContainer>
+  <!-- MESSAGES -->
+  <div class="chat-messages" #scrollContainer>
 
     <div *ngFor="let msg of messages">
-      <div class="textbox" [ngClass]="{
-        'text-right': msg.from == currentUser.userid && msg.to == selectedUser?.userid,
-      }"
-        [ngStyle]="{'display': msg.from == currentUser.userid && msg.to == selectedUser?.userid || msg.from == selectedUser?.userid && msg.to == currentUser.userid ? '' : 'none'}">
 
-        <!-- [ngClass]="{
-            'bg-blue-500 text-whites ml-auto': msg.from == currentUser.userid && msg.to == selectedUser?.userid,
-            'bg-white text-gray-800': msg.from != currentUser.userid || msg.to != selectedUser?.userid,
-          }" -->
-        <p-card class="inline-block max-w-[75%] p-2 rounded-xl ">
+      <div class="message-wrapper"
+           [ngClass]="{
+             'me': msg.from === currentUser.userid && msg.to === selectedUser?.userid,
+             'other': msg.from === selectedUser?.userid && msg.to === currentUser.userid
+           }"
+           [ngStyle]="{
+             'display': (msg.from === currentUser.userid && msg.to === selectedUser?.userid)
+                        || (msg.from === selectedUser?.userid && msg.to === currentUser.userid)
+                        ? '' : 'none'
+           }">
+
+        <mat-card class="message-bubble">
           {{ msg.text }}
-        </p-card>
+        </mat-card>
 
-        <p class="text-xs text-gray-500 mt-1">
+        <p class="timestamp">
           {{ msg.timestamp | date : 'dd-MMM-yyyy hh:mm:ss a' }}
         </p>
+
       </div>
+
     </div>
 
   </div>
 
-  <!-- Message input -->
-  <div class="p-3 border-t bg-white flex items-center gap-3">
-    <input pInputText class="flex-1" [(ngModel)]="message" placeholder="Type a message..."
-      (keyup.enter)="sendMessage()" />
+  <!-- INPUT AREA -->
+  <div class="chat-input">
 
-    <button pButton icon="pi pi-send" (click)="sendMessage()"></button>
+    <mat-form-field class="input-full" appearance="outline">
+      <input matInput [(ngModel)]="message"
+             placeholder="Type a message..."
+             (keyup.enter)="sendMessage()">
+    </mat-form-field>
+
+    <button mat-icon-button color="primary" (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </button>
+
   </div>
 
 </div>

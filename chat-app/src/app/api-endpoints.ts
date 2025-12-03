@@ -9,4 +9,5 @@ export class ApiEndpoints {
   static getMessages = environment.api.chat.messages;
   static sendMessage = environment.api.chat.sendMessage;
   static insertMessage = environment.api.chat.insertMessage;
+  static getChatHistory =  environment.api.chat.getChatHistory;
 }

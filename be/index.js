@@ -5,11 +5,11 @@ const { app } = require("./config/express.config");
 const userRoutes = require("./src/routes/user.route");
 const pushRoutes = require("./src/routes/push.routes");
 const messageRoutes = require("./src/routes/message.route");
-const webpush = require('web-push');
 const express = require('express');
 app.use(express.json());
 
 app.get("/", (req, res) => {
+    console.log("in base url");
     res.send({
         status: true,
         message: "Auto Complete Server By Amantya Technologies .Inc"
@@ -25,8 +25,13 @@ app.use('/api', messageRoutes);
 
 
 
-app.listen(
-    4000,"0,0,0,0", () => {
+// app.listen(
+//     4000, "0,0,0,0", () => {
+//         console.log("server running on 4000");
+//     })
+
+    app.listen(
+    4000,  () => {
         console.log("server running on 4000");
     })
 

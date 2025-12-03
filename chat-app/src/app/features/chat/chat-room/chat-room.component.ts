@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
 import { UserListComponent } from '../user-list/user-list.component';
 import { JsonPipe, NgClass, NgIf, NgStyle } from '@angular/common';
@@ -6,15 +6,15 @@ import { ActivatedRoute } from '@angular/router';
 import { WebSocketService } from '../../../core/services/websocket.service';
 import { PushService } from '../../../core/services/push.service';
 import { UserService } from '../../../core/services/user.service';
+import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
   selector: 'app-chat-room',
   standalone: true,
   imports: [ChatWindowComponent,
     UserListComponent,
-    NgClass,
-    // NgIf, 
-    NgStyle],
+    SharedModule
+  ,NgIf],
   templateUrl: './chat-room.component.html',
   styleUrl: './chat-room.component.scss'
 })
@@ -89,5 +89,12 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     });
 
   }
+  isDesktop = window.innerWidth >= 768;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.isDesktop = window.innerWidth >= 768;
+  }
+ 
 
 }

@@ -1,55 +1,43 @@
+<mat-sidenav-container class="chat-container">
 
-
-<div class="flex h-screen bg-gray-900 overflow-hidden">
-  <!-- MOBILE HEADER -->
-  <div class="md:hidden bg-gray-800 p-4 flex items-center justify-between">
-    <h2 class="text-white font-semibold text-lg">Chats</h2>
-    <!-- Sidebar Toggle Button -->
-    <button 
-      class="text-white p-2"
-      (click)="toggleSidebar()">
-      <i class="pi" [ngClass]="sidebarOpen ? 'pi-times' : 'pi-bars'"></i>
-    </button>
-  </div>
-
-  <!-- SIDEBAR (USER LIST) -->
-
-  <div
-    class="
-      fixed 
-      inset-y-0 left-0 
-      w-72 
-      bg-gray-800 
-      border-r border-gray-700 
-      transform 
-      transition-transform duration-300 
-      md:translate-x-0 
-      md:static 
-      md:block
-    "
-    [ngClass]="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
+  <!-- SIDEBAR -->
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    class="sidebar"
+    [opened]="isDesktop"
   >
     <app-user-list
-      class="h-full"
       (userSelected)="onUserSelected($event)"
+      class="sidebar-content"
     ></app-user-list>
-  </div>
+  </mat-sidenav>
 
-  <!-- CHAT WINDOW -->
-  <div class="flex-1 h-full">
-    <!-- <div *ngIf="selectedUser"> -->
-      <div [ngStyle]="{'display' : selectedUser ? '' : 'none'}" class="h-full">
+  <!-- MAIN CHAT AREA -->
+  <mat-sidenav-content class="chat-content">
+
+    <!-- MOBILE HEADER -->
+    <div class="mobile-header">
+      <h2>Chats</h2>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>{{ sidenav.opened ? 'close' : 'menu' }}</mat-icon>
+      </button>
+    </div>
+
+    <!-- CHAT WINDOW -->
+    <ng-container *ngIf="selectedUser; else noUser">
+
       <app-chat-window
-      [selectedUser]="selectedUser"
-      (backToUsers)="closeSidebarOnMobile()"
+        [selectedUser]="selectedUser"
       ></app-chat-window>
-    </div>
-    <div [ngStyle]="{'display': selectedUser ? 'none' : ''}" class="h-full">
-    <!-- <div *ngIf="!selectedUser"> -->
-      <div class="h-full flex items-center justify-center">
-        <p class="text-gray-400">Select a user to start chatting</p>
-      </div>
-    </div>
-  </div>
+    </ng-container>
 
-</div>
+    <!-- EMPTY STATE WHEN NO USER SELECTED -->
+    <ng-template #noUser>
+      <div class="empty-state">
+        <p>Select a user to start chatting</p>
+      </div>
+    </ng-template>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

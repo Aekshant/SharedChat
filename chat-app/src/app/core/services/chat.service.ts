@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
+
   // store messages in-memory (replace with websocket in prod)
   private messages: Message[] = [];
   private messagesSubject = new BehaviorSubject<Message[]>([]);
@@ -41,4 +42,11 @@ export class ChatService {
    return this.http.post(`${environment.api.baseUrl}${ApiEndpoints.insertMessage}`, payload);
   }
 
+
+  getChatHistory(currentUserId: any, selectedUserId: any) {
+    const payload  = new SendMessageParam();
+    payload.fromuserid = currentUserId;
+    payload.touserid = selectedUserId;
+    return this.http.post(`${environment.api.baseUrl}${ApiEndpoints.getChatHistory}`, payload);
+  }
 }

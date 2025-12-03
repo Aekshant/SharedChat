@@ -1,25 +1,22 @@
 
-const userServices = require("../services/user.service")
 const messageService = require("../services/message.service")
 
-exports.getData = async (req, res) => {
+exports.getChatHistory = async (req, res) => {
+    console.log("in get chat history handler");
     try {
-        const data = await userServices.getData()
+        const data = await messageService.getChatHistory(req.body);
         return res.status(200).send({ status: true, data, message: "success" })
     } catch (error) {
-        return res.status(200).send({ status: true, data, message: "Internal Server Issue", error })
+        return res.status(200).send({ status: true, data:'unable to fetch message', message: "Internal Server Issue", error })
     }
-
 }
 
 exports.insertMessage = async (req, res) => {
     try {
         const data = await messageService.insertMessage(req.body);
-        console.log("data in handler" , data)
         return res.status(200).send({ status: true, data, message: "success" })
     } catch (error) {
-        console.log(error)
         return res.status(200).send({ status: true, data : 'data', message: "Internal Server Issue", error })
     }
-
 }
+
