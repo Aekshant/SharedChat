@@ -14,8 +14,9 @@
            class="user-item">
 
         <!-- Material Avatar -->
-        <div class="avatar">
-          <mat-icon>person</mat-icon>
+        <div   class="avatar">
+          <mat-icon  *ngIf="!user.profileurl" >person</mat-icon>
+          <img src="{{environment.fileUrl+'/'+user.profileurl}}" *ngIf="user.profileurl" style="width: 40px; height: 40px;"/>
         </div>
 
         <!-- User Info -->

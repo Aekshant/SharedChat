@@ -1,5 +1,6 @@
+import { environment } from './../../../../environments/environment.development';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { DatePipe, JsonPipe, NgClass, NgFor, NgStyle } from '@angular/common';
+import { DatePipe, JsonPipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../../shared/models/user.model';
 import { WebSocketService } from '../../../core/services/websocket.service';
@@ -18,7 +19,8 @@ import { SharedModule } from '../../../shared/shared.module';
     NgClass,
     NgStyle,
     DatePipe,
-    SharedModule
+    SharedModule,
+    NgIf,
   ],
   templateUrl: './chat-window.component.html',
   styleUrl: './chat-window.component.scss'
@@ -29,6 +31,7 @@ export class ChatWindowComponent implements OnChanges {
   currentUser: any = null;
   message: string = '';
   messages: any[] = [];
+  environment = environment;
   private sub!: Subscription;
 oldConversation: any[] = [];
 

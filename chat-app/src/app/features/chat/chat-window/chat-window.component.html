@@ -2,7 +2,10 @@
 
   <!-- HEADER -->
   <div class="chat-header">
-    <div class="avatar">
+    <div  *ngIf="selectedUser.profileurl">
+      <img src="{{environment.fileUrl+'/'+selectedUser.profileurl}}" style="width: 40px; height: 40px;"/>
+    </div>
+    <div class="avatar" *ngIf="!selectedUser.profileurl">
       {{ selectedUser?.firstname[0] }}
     </div>
 
@@ -17,12 +20,10 @@
 
     <div *ngFor="let msg of messages">
 
-      <div class="message-wrapper"
-           [ngClass]="{
+      <div class="message-wrapper" [ngClass]="{
              'me': msg.from === currentUser.userid && msg.to === selectedUser?.userid,
              'other': msg.from === selectedUser?.userid && msg.to === currentUser.userid
-           }"
-           [ngStyle]="{
+           }" [ngStyle]="{
              'display': (msg.from === currentUser.userid && msg.to === selectedUser?.userid)
                         || (msg.from === selectedUser?.userid && msg.to === currentUser.userid)
                         ? '' : 'none'
@@ -46,9 +47,7 @@
   <div class="chat-input">
 
     <mat-form-field class="input-full" appearance="outline">
-      <input matInput [(ngModel)]="message"
-             placeholder="Type a message..."
-             (keyup.enter)="sendMessage()">
+      <input matInput [(ngModel)]="message" placeholder="Type a message..." (keyup.enter)="sendMessage()">
     </mat-form-field>
 
     <button mat-icon-button color="primary" (click)="sendMessage()">

@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
@@ -19,7 +20,7 @@ import { SharedModule } from '../../../shared/shared.module';
 export class UserListComponent implements OnInit {
   userResponse!: Root;
 
-
+environment = environment;
   @Output() userSelected = new EventEmitter<any>();
 
 

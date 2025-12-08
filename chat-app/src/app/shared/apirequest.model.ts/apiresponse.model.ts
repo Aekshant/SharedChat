@@ -15,4 +15,5 @@ export interface Daum {
   entrytime: any
   updatetime: any
   status: any
+  profileurl: string
 }
