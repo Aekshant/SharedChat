@@ -51,4 +51,8 @@ export class UserService {
     const users = this.users$.getValue();
     return users.find(u => u.id == id);
   }
+
+  uploadProfilePicture(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${environment.api.baseUrl}/uploads`, formData);
+  }
 }

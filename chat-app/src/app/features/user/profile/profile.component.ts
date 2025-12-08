@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
@@ -16,12 +17,12 @@ export class ProfileComponent {
   profileForm: FormGroup;
 
   localStorageUser: any = null;
-
-
-  userResponse : any;
+  environment = environment;
+  userResponse: any;
   constructor(private fb: FormBuilder,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+
   ) {
     this.localStorageUser = this.authService.getCurrentUser();
 
@@ -33,15 +34,14 @@ export class ProfileComponent {
       phone: [],
       address: [],
       countryCode: [],
-      userid : []
+      userid: []
     });
 
     this.getOwnerDetails();
   }
 
   save() {
-    console.log(this.userResponse.data[0].userid)
-    const userPayload : User = {
+    const userPayload: User = {
       firstname: this.profileForm.value.firstName,
       lastname: this.profileForm.value.lastName,
       countrycode: this.profileForm.value.countryCode,
@@ -52,9 +52,9 @@ export class ProfileComponent {
       entrytime: null,
       updatetime: null,
       status: null,
-      gender : this.profileForm.value.gender
+      gender: this.profileForm.value.gender
     }
-    this.userService.updateUserProfile(userPayload ).toPromise().then((response: any) => {
+    this.userService.updateUserProfile(userPayload).toPromise().then((response: any) => {
       console.log("Profile updated successfully:", response);
       // Optionally, show a success message to the user
     }).catch((error: any) => {
@@ -72,14 +72,14 @@ export class ProfileComponent {
       phone: '',
       address: '',
       countryCode: '',
-      userid : ''
+      userid: ''
     });
   }
 
 
   async getOwnerDetails() {
     const userid = this.localStorageUser ? this.localStorageUser.userid : null;
-this.userResponse = await this.userService.getUserById(userid)
+    this.userResponse = await this.userService.getUserById(userid)
 
 
     const user = this.userResponse.data;
@@ -98,4 +98,23 @@ this.userResponse = await this.userService.getUserById(userid)
     }
 
   }
+
+  onFileSelected(event: any) {
+    console.log("file is", event);
+    const file: File = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+    formData.append("userid", this.userResponse.data[0].userid);
+
+    this.userService.uploadProfilePicture(formData).toPromise().then((response: any) => {
+      console.log("File uploaded successfully:", response);
+      // Optionally, show a success message to the user;
+      this.getOwnerDetails();
+    }).catch((error: any) => {
+      console.error("Error uploading file:", error);
+      // Optionally, show an error message to the user
+    });
+  }
+
 }

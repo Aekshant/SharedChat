@@ -119,3 +119,23 @@ exports.updateUser = async (userDetails) => {
         return { message: 'Error updating user' };
     }
 }
+
+
+exports.updateProfilePicture = async (userid, profilePicturePath) => {
+    const query = `
+       UPDATE public.user_master SET profileurl = $1, updatetime = NOW() WHERE userid = $2;`;
+    const params = [profilePicturePath, userid];
+    try {
+        const queryResult = await dbConnection.executeWriteQuery(query, params);
+
+        if (queryResult.rowCount === 1) {
+            return { message: 'Profile picture updated successfully' };
+        }
+        return { message: 'No user updated' };
+
+    }
+    catch (error) {
+        console.error("Error updating profile picture", error);
+        return { message: 'Error updating profile picture' };
+    }
+}

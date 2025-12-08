@@ -2,7 +2,8 @@
 
   <!-- Header section -->
   <div class="profile-header">
-    <img src="assets/avatar.png" class="avatar" alt="Avatar" />
+    <img src="{{environment.fileUrl+'/'+this.userResponse.data[0].profileurl}}" class="avatar" alt="Avatar" (click)="fileInput.click()" />
+    <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" />
     <h2>{{ profileForm.value.fullName }}</h2>
     <p>{{ profileForm.value.email }}</p>
   </div>

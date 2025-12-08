@@ -24,7 +24,6 @@ export class PushService {
       applicationServerKey: this.base64ToUint8Array(this.VAPID_PUBLIC_KEY),
     });
 
-    console.log("Subscription:", subscription);
 
     // send to backend
     await fetch('http://localhost:4000/api/push/save-subscription', {

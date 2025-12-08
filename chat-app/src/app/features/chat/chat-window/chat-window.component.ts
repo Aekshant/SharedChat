@@ -70,7 +70,6 @@ oldConversation: any[] = [];
     // 1️⃣ SEND THE CHAT MESSAGE USING YOUR BACKEND
     // (Your normal messaging API, not shown here)
     // this.chatService.sendMessage(receiverId, this.message).subscribe();
-    console.log('after web socket send message')
     // 2️⃣ SEND PUSH NOTIFICATION
     this.http.post('http://localhost:4000/api/push/send', {
       title: "New Message",

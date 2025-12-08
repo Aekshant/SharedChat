@@ -1,8 +1,9 @@
 export const environment = {
-    production: false,
+  production: false,
+  fileUrl: 'http://localhost:4000',
 
   api: {
-     baseUrl: 'http://localhost:4000/api',
+    baseUrl: 'http://localhost:4000/api',
 
     auth: {
       login: '/auth/login',
@@ -14,10 +15,10 @@ export const environment = {
       messages: '/chat/messages',
       sendMessage: '/chat/send',
       insertMessage: '/message/insertmessage',
-      getChatHistory:'/message/chathistory'
+      getChatHistory: '/message/chathistory'
 
     },
-     profile : {
+    profile: {
       userById: '/user'
     }
   }

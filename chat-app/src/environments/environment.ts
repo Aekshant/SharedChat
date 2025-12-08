@@ -1,9 +1,9 @@
 export const environment = {
   production: false,
+  fileUrl: 'http://localhost:4000',
 
   api: {
      baseUrl: 'http://localhost:4000/api',
-
     auth: {
       login: '/auth/login',
       register: '/auth/register',
