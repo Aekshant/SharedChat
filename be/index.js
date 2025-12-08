@@ -10,7 +10,6 @@ const express = require('express');
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    console.log("in base url");
     res.send({
         status: true,
         message: "Auto Complete Server By Amantya Technologies .Inc"

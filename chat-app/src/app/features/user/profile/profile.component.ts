@@ -55,7 +55,6 @@ export class ProfileComponent {
       gender: this.profileForm.value.gender
     }
     this.userService.updateUserProfile(userPayload).toPromise().then((response: any) => {
-      console.log("Profile updated successfully:", response);
       // Optionally, show a success message to the user
     }).catch((error: any) => {
       console.error("Error updating profile:", error);
@@ -100,7 +99,6 @@ export class ProfileComponent {
   }
 
   onFileSelected(event: any) {
-    console.log("file is", event);
     const file: File = event.target.files[0];
 
     const formData = new FormData();
@@ -108,8 +106,6 @@ export class ProfileComponent {
     formData.append("userid", this.userResponse.data[0].userid);
 
     this.userService.uploadProfilePicture(formData).toPromise().then((response: any) => {
-      console.log("File uploaded successfully:", response);
-      // Optionally, show a success message to the user;
       this.getOwnerDetails();
     }).catch((error: any) => {
       console.error("Error uploading file:", error);

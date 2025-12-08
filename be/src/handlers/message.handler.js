@@ -2,7 +2,6 @@
 const messageService = require("../services/message.service")
 
 exports.getChatHistory = async (req, res) => {
-    console.log("in get chat history handler");
     try {
         const data = await messageService.getChatHistory(req.body);
         return res.status(200).send({ status: true, data, message: "success" })

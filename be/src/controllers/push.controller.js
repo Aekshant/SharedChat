@@ -23,7 +23,6 @@ exports.saveSubscription = (req, res) => {
 
 
 exports.sendNotification = (req, res) => {
-  console.log("reqbody" , req.body)
   const { title, body, senderId } = req.body;
   pushService.sendPushToAll({
     title,

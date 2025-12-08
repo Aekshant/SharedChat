@@ -20,12 +20,10 @@ export class HeaderComponent {
 
 
   onViewProfile() {
-    console.log("View Profile clicked");
     // navigate to profile or open popup
   }
 
   onLogout() {
-    console.log("Logout clicked");
     // perform logout logic;
     this.router.navigate(['/auth/login']);
   }

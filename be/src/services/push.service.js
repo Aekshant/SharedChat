@@ -17,7 +17,6 @@ exports.sendPushToAll = (payload) => {
 
   if (!fs.existsSync(dbPath)) return;
   const subs = JSON.parse(fs.readFileSync(dbPath));
-  console.log("Sending push to subscriptions:", subs);
   subs.forEach(sub => {
     webpush.sendNotification(sub, JSON.stringify(payload))
       .catch(err => console.log("Push error:", err));

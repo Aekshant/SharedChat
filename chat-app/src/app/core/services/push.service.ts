@@ -34,7 +34,6 @@ export class PushService {
   }
 
   private base64ToUint8Array(base64String: string) {
-    // console.log(base64)
     // const padding = '='.repeat((4 - (base64.length % 4)) % 4);
     // const raw = atob(base64 + padding);
     // return new Uint8Array([...raw].map(char => char.charCodeAt(0)));

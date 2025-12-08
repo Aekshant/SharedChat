@@ -107,7 +107,6 @@ exports.updateUser = async (userDetails) => {
 
     try {
         const queryResult = await dbConnection.executeWriteQuery(query, params);
-        console.log("Update Query Result:", queryResult);
         if (queryResult.rowCount === 1) {
             return { message: 'User updated successfully' };
         }

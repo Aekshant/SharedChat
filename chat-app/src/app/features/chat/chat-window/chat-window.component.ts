@@ -92,17 +92,14 @@ oldConversation: any[] = [];
 
 
   insertMessage() {
-    console.log('Inserting message', this.message, "current user is ==>", this.currentUser, "selected user is ==>", this.selectedUser);
     const messagePayload = new SendMessageParam();
     messagePayload.chatmassege = this.message;
     messagePayload.fromuserid = this.currentUser.userid;
     messagePayload.touserid = this.selectedUser.userid;
     this.chatService.insertMessage(messagePayload).subscribe({
       next: (res) => {
-        console.log('Message inserted successfully', res);
       },
       error: (err) => {
-        console.error('Error inserting message', err);
       }
     });
   }
@@ -113,7 +110,6 @@ oldConversation: any[] = [];
     this.chatService.getChatHistory(this.currentUser.userid, this.selectedUser.userid).subscribe({
       next: (res: any) => {
         this.messages = res.data || [];
-        console.log(this.messages)
       },
       error: (err) => {
         console.error('Error fetching chat history', err);

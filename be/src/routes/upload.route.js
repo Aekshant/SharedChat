@@ -19,7 +19,6 @@ const upload = multer({ storage });
 // API Route
 router.post('/uploads', upload.single('profilePicture'), (req, res) => {
 
-    console.log("file upload api called" , req.body, req.file);
     if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
     }
